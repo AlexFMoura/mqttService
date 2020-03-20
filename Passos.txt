@@ -1,0 +1,175 @@
+
+==============================================================
+=> Iniciar o servidor pstgres 
+cmd
+C:
+cd C:\Java\PostgreSQL\11.2\pgAdmin 4\bin
+pgAdmin4.exe
+ou
+C:\Java\PostgreSQL\11.2\pgAdmin 4\bin\pgAdmin4.exe
+
+  
+
+CREATE SEQUENCE public.mensagem_id_seq;
+
+ALTER SEQUENCE public.mensagem_id_seq OWNER TO postgres;
+
+CREATE TABLE public.mensagem
+(
+    id integer NOT NULL DEFAULT nextval('mensagem_id_seq'::regclass),
+    cliente character varying COLLATE pg_catalog."default",
+    endpoint character varying(256) COLLATE pg_catalog."default",
+    gateway character varying(256) COLLATE pg_catalog."default",
+    sensor character varying(256) COLLATE pg_catalog."default",
+    data_hora character varying(256) COLLATE pg_catalog."default",
+    um_medida character varying(256) COLLATE pg_catalog."default",
+    valor float,
+    CONSTRAINT mensagem_pkey PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+ALTER TABLE public.mensagem OWNER to postgres;
+
+
+==============================================================
+=> Iniciar o servidor mqtt 
+cmd
+C:
+cd C:\Java\apache-activemq-5.15.10\bin
+activemq start
+
+Abrir o endereço pelo Browser
+http://localhost:8161
+User: admin
+Pass: admin
+
+1º - Erro na gravação das informações enviadas pelo arduino
+=> Verificar se o tipo do valor que o arduino esta enviando é o mesmo do campo do banco de dados.
+2º - Fala na concexão ao MQTT
+=> Verificar se as portas da aplicação mobile, web e arduino são diferentes e contem no arquivo activemq.xml.
+3º - O arduino não esta enviando para o MQTT
+=> Verificar se o arduino e as aplicação estão na mesma rede.
+=> Reinicia o MQTT
+=> Desabilitar o firewall
+4º - Falha ao ler a mensagem de uma topico do MQTT:
+=> Verificar o tamanho máximo da mensagem lida na biblioteca do MQTT
+C:\Users\Vinicius\Documents\Arduino\libraries\PubSubClient\src\PubSubClient.h
+==>Alterar a o valor da variável MQTT_MAX_PACKET_SIZE para 1024 (exemplo)
+
+==============================================================
+=> Abrir o projeto SmartEnvironmentCamel no eclipse
+1. No Eclipse, abra a perspectiva do Remote System Explorer.
+2. Clique em Arquivo > Importar projeto maven.
+   C:\workspace-eclipse\SmartEnvironmentCamel 
+
+==============================================================
+=> Iniciar o servidor tomcat 
+cmd
+C:
+cd C:\Java\apache-tomcat-8.5.42\bin
+startup.bat
+ou
+C:\Java\apache-tomcat-8.5.42\bin\startup.bat
+
+
+Abrir o endereço pelo Browser
+http://localhost:8081
+User: admin
+Pass: admin
+
+Configuração da porta do tomcat
+C:\Java\apache-tomcat-8.5.42\confserver.xml
+
+==============================================================
+=> Iniciar o servidor wildfly 
+
+1º - Inicia servidor wildfly pelo cmd
+C:
+cd C:\Java\wildfly-18.0.1.Final\bin
+standalone.bat -b 0.0.0.0
+
+Abrir o endereço pelo Browser
+http://localhost:9990
+User : admin
+Senha: admin
+
+2º - Gerar o WAR da aplicação pelo cmd
+C:
+cd C:\workspace-eclipse\SmartEnvironmentCamel\
+mvn clean package -DskipTests
+
+3º - Importa o WAR no servidor wildfly pelo browser
+http://localhost:9990/console/App.html#standalone-deployments
+
+==============================================================
+=> Abrir o servidor mqtt pelo browser
+http://localhost:8161
+
+Na guia Connections no Item Connector openwire, 
+tem que aparecer as conexões do serviço SmartEnvironmentCamel
+
+Na guia Topics, 
+tem que aparecer os tópicos do serviço SmartEnvironmentCamel
+
+==============================================================
+=> Abrir o projeto SmartEnvironmentApp no vscode
+
+Abrir o terminal e digitar para baixar as dependencias
+npm install
+Abrir o terminal e digitar para projeto angular
+ng serve
+Abrir o terminal e digitar para projeto ionic
+iconi serve
+Abrir o browser e digitar 
+localhost:8100/
+
+==============================================================
+=> Testes
+
+Aplicativo envia para o MQTT para o Arduino receber
+{
+  "embarcado": "NodeMCU:01",
+  "ambiente": "Trabalho",
+  "aparelho": "Samsung",
+  "estado": "L",
+  "tempSelec": 17
+}
+
+Arduino envia para para o MQTT para o Aplicativo recebers
+{
+  "embarcado": "NodeMCU01",
+  "ambiente": "Casa",
+  "aparelho": "Samsung",
+  "estado": "L",
+  "temp01": 28,
+  "temp02": 30,
+  "temp03": 0,
+  "temp04": 0,
+  "tempMedia": 29
+}
+
+
+Arduino recebe do aplicativo
+{\"sensor\":\"gps\",\"time\":1351824120,\"data\":[48.756080,2.302038]}
+OU
+{\"embarcado\": "NodeMCU:01",\"ambiente\": "Trabalho",\"aparelho\": "Hitachi",\"estado\": "L", \"tempSelec\": 17}
+{
+  \"embarcado\": "NodeMCU:01",
+  \"ambiente\": "Trabalho",
+  \"aparelho\": "Hitachi",
+  \"estado\": "L",
+  \"tempSelec\": 17
+}
+OU
+{\"embarcado\": "01",\"ambiente\": "Trab",\"aparelho\": "Hita",\"estado\": "L", \"tempSelec\": 17}
+{"embarcado":"NodeMCU:01","ambiente":"Trabalho","aparelho":"Hitachi","estado":"L","tempSelec":17}
+
+
+
+
+
+
+
+

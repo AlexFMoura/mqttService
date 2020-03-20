@@ -1,0 +1,4 @@
+Necessario a inclusão dos .jar na pasta lib do tomcat
+- c3p0-0.9.5.2.jar
+- mchange-commons-java-0.2.11.jar
+- mysql-connector-java-5.1.39-bin.jar ou a mesma versão do projeto

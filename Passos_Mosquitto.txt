@@ -1,0 +1,36 @@
+http://www.steves-internet-guide.com/install-mosquitto-broker/
+http://www.steves-internet-guide.com/mosquitto_pub-sub-clients/
+
+C:\Java>cd C:\Java\mosquitto
+
+C:\Java\mosquitto>mosquitto -p 1883
+
+C:\Java\mosquitto>mosquitto -p 1884
+
+{
+  "cliente": "NodeMCU:01",
+  "endpoint": "Trabalho",
+  "gateway": "Samsung",
+  "sensor": "LT11",
+  "data_hora": "14/03/2020 14:00:015",
+  "um_medida": "Lt",
+  "valor": 17
+}
+
+
+http://www.sourceware.org/pub/pthreads-win32/dll-latest/dll/x86/
+https://www.youtube.com/watch?v=p1NxNYA2zkY
+https://santimacnet.wordpress.com/2016/10/15/mosquitto-como-instalar-mosquitto-server-mqtt-broker-en-windows-para-notificaciones-push/
+
+execute o seguinte comando quando estiver conectado ao contêiner apropriado via SSH Gate:
+
+mosquitto_sub -t {topic} -h {host} -p {port}
+
+onde:
+
+{tópico} – nome do tópico para se inscrever na instância atual (por exemplo, demo/toast-status)
+{host} – endereço de domínio do ambiente Eclipse Mosquitto
+{port} – porta pública do seu endpoint (pode ser encontrada na seção Configurações do ambiente > Endpoints) para conexão de fora da plataforma Jelastic
+
+C:\Java\mosquitto>mosquitto_sub -t test -h localhost -p 1883
+
