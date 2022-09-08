@@ -9,7 +9,7 @@
 	<properties>
 		<org.eclipse.paho.version>1.1.0</org.eclipse.paho.version>
 		<mysql-connector-java.version>8.0.17</mysql-connector-java.version>
-		<org.postgresql.version>42.1.4</org.postgresql.version>
+		<org.postgresql.version>42.4.1</org.postgresql.version>
 		<org.json.version>20090211</org.json.version>
 		
 		<org.springframework.version>4.1.6.RELEASE</org.springframework.version>
